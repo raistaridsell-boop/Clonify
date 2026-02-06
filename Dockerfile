@@ -1,25 +1,17 @@
-FROM node:20-bookworm
+FROM python:3.11-slim
 
-# System packages (ffmpeg etc.)
-RUN apt-get update && apt-get install -y \
-    ffmpeg \
-    curl \
-    gnupg \
-    ca-certificates \
+# System deps
+RUN apt-get update && apt-get install -y ffmpeg \
     && rm -rf /var/lib/apt/lists/*
 
-# App folder
 WORKDIR /app
 
-# Sirf package.json copy karo
-COPY package.json ./
+# Python dependencies
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
 
-# NPM install
-RUN npm install
-
-# Baaki project files copy
+# Project files
 COPY . .
 
-# App start command
-CMD ["node", "index.js"]
-
+# Start bot
+CMD ["python", "-m", "Clonify"]
