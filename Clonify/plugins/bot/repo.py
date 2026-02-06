@@ -10,9 +10,9 @@ start_txt = """
 **Cʟᴏɴɪғʏ** - Tʜᴇ Uʟᴛɪᴍᴀᴛᴇ Tᴇʟᴇɢʀᴀᴍ Mᴜsɪᴄ Sᴏʟᴜᴛɪᴏɴ ᴡɪᴛʜ ᴄʟᴏɴᴇ ғᴇᴀᴛᴜʀᴇs.
 
 ┏━━━━━━━━━━━━━━━━━⧫
-┠ ◆ **sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ:** [Click Here](https://github.com/TeamProBots/Clonify)  
-┠ ◆ **ᴅᴇᴠᴇʟᴏᴘᴇʀ:** [Zᴇᴏ](https://t.me/ZeoXpro)
-┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [PʀᴏBᴏᴛs](https://t.me/ProBotts)
+┠ ◆ **sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ:** [Click Here](https://files.catbox.moe/mgrnlq.jpg)  
+┠ ◆ **ᴅᴇᴠᴇʟᴏᴘᴇʀ:** [KRISH](https://t.me/krish_hu_bc)
+┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [PʀᴏBᴏᴛs](https://t.me/krishupdates)
 ┗━━━━━━━━━━━━━━━━━⧫
 
 __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ ʏᴏᴜʀ ᴏᴡɴ!__
@@ -26,11 +26,11 @@ __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ �
 async def start(_, msg):
     buttons = [
         [
-                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/ProBotGc"),
-                InlineKeyboardButton("𝗨𝗣𝗗𝗔𝗧𝗘", url="https://t.me/ProBotts")
+                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/supp8iiiny"),
+                InlineKeyboardButton("𝗨𝗣𝗗𝗔𝗧𝗘", url="https://t.me/krishupdates")
         ],
         [ 
-          InlineKeyboardButton("𝗦𝗢𝗨𝗥𝗖𝗘 𝗖𝗢𝗗𝗘", url=f"https://github.com/TeamProBots/Clonify")
+          InlineKeyboardButton("𝗦𝗢𝗨𝗥𝗖𝗘 𝗖𝗢𝗗𝗘", url=f"https://files.catbox.moe/mgrnlq.jpg")
         ]
     ]
     
@@ -50,7 +50,7 @@ async def start(_, msg):
 @capture_err
 async def repo(_, message):
     async with httpx.AsyncClient() as client:
-        response = await client.get("https://api.github.com/repos/TeamProBots/Clonify/contributors")
+        response = await client.get("https://api.github.com/repos/krishupdates/Clonify/contributors")
     
     if response.status_code == 200:
         users = response.json()
@@ -60,7 +60,7 @@ async def repo(_, message):
             list_of_users += f"{count}. [{user['login']}]({user['html_url']})\n"
             count += 1
 
-        text = f"""[𝖱𝖤𝖯𝖮 𝖫𝖨𝖭𝖪](https://t.me/ProBotts) | [𝖦𝖱𝖮𝖴𝖯](https://t.me/ProBotGc)
+        text = f"""[𝖱𝖤𝖯𝖮 𝖫𝖨𝖭𝖪](https://t.me/krishbots) | [𝖦𝖱𝖮𝖴𝖯](https://t.me/krishupdates)
 | 𝖢𝖮𝖭𝖳𝖱𝖨𝖡𝖴𝖳𝖮𝖱𝖲 |
 ----------------
 {list_of_users}"""
