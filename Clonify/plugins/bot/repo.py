@@ -12,7 +12,7 @@ start_txt = """
 ┏━━━━━━━━━━━━━━━━━⧫
 ┠ ◆ **sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ:** [Click Here](https://files.catbox.moe/mgrnlq.jpg)  
 ┠ ◆ **ᴅᴇᴠᴇʟᴏᴘᴇʀ:** [KRISH](https://t.me/krish_hu_bc)
-┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [PʀᴏBᴏᴛs](https://t.me/krishupdates)
+┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [krishBᴏᴛs](https://t.me/krishupdates)
 ┗━━━━━━━━━━━━━━━━━⧫
 
 __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ ʏᴏᴜʀ ᴏᴡɴ!__
