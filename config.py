@@ -21,7 +21,7 @@ BOT_USERNAME = getenv("BOT_USERNAME" , "Aaruxmusiicbot")
 # --------------------------------------------------------
 BOT_NAME = getenv("BOT_NAME" , "Aaru")
 # ---------------------------------------------------------
-ASSUSERNAME = getenv("ASSUSERNAME" , "AaruaPro")
+ASSUSERNAME = getenv("ASSUSERNAME" , "krish")
 # ---------------------------------------------------------
 
 
