@@ -22,7 +22,7 @@ BOT_USERNAME = getenv("BOT_USERNAME" , "Akashmusicrobot")
 # --------------------------------------------------------
 BOT_NAME = getenv("BOT_NAME" , "Akash")
 # ---------------------------------------------------------
-ASSUSERNAME = getenv("ASSUSERNAME" , "akash")
+ASSUSERNAME = getenv("ASSUSERNAME" , "Akash")
 # ---------------------------------------------------------
 
 
@@ -150,7 +150,7 @@ STREAMI_PICS = [
 ]
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://i.ibb.co/xPjc7tv/help-menu.jpg"
+    "START_IMG_URL", "https://api.telegram.org/file/bot8415102286:AAFQzL55Q5hfvyw3MAoZeeCshqvkqoEJPvk/photos/file_496.jpg"
 )
 
 HELP_IMG_URL = getenv(
