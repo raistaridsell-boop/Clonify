@@ -16,13 +16,13 @@ API_HASH = getenv("API_HASH")
 BOT_TOKEN = getenv("BOT_TOKEN")
 BOT_ID = getenv("BOT_ID")
 # -------------------------------------------------------
-OWNER_USERNAME = getenv("OWNER_USERNAME","krish_hu_bc")
+OWNER_USERNAME = getenv("OWNER_USERNAME","I_RAMBHAKT_I")
 # --------------------------------------------------------
-BOT_USERNAME = getenv("BOT_USERNAME" , "Aaruxmusiicbot")
+BOT_USERNAME = getenv("BOT_USERNAME" , "Akashmusicrobot")
 # --------------------------------------------------------
-BOT_NAME = getenv("BOT_NAME" , "Aaru")
+BOT_NAME = getenv("BOT_NAME" , "Akash")
 # ---------------------------------------------------------
-ASSUSERNAME = getenv("ASSUSERNAME" , "krish")
+ASSUSERNAME = getenv("ASSUSERNAME" , "akash")
 # ---------------------------------------------------------
 
 
@@ -38,11 +38,11 @@ DURATION_LIMIT_MIN = int(getenv("DURATION_LIMIT", 17000))
 # ----------------------------------------------------------------
 
 # ----------------------------------------------------------------
-LOGGER_ID = int(getenv("LOGGER_ID", "-1003601301106"))
+LOGGER_ID = int(getenv("LOGGER_ID", "-1003365454690"))
 CLONE_LOGGER = LOGGER_ID
 # ----------------------------------------------------------------
 # ----------------------------------------------------------------
-OWNER_ID = int(getenv("OWNER_ID", 8078856375))
+OWNER_ID = int(getenv("OWNER_ID", 8556819933))
 # -----------------------------------------------------------------
 # -----------------------------------------------------------------
 # config.py
@@ -73,9 +73,9 @@ GIT_TOKEN = getenv(
 
 # ------------------------------------------------------------------------
 # -------------------------------------------------------------------------
-SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/krishupdates")
-SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/+khBhCYpOqJVmODQ9")
-CHAT = getenv("CHAT", "https://t.me/+khBhCYpOqJVmODQ9")
+SUPPORT_CHANNEL = getenv("SUPPORT_CHANNEL", "https://t.me/SpotifyXNetworks")
+SUPPORT_CHAT = getenv("SUPPORT_CHAT", "https://t.me/SpotifyChatting")
+CHAT = getenv("CHAT", "https://t.me/SpotifyXNetworks")
 # ------------------------------------------------------------------------------
 # -------------------------------------------------------------------------------
 
