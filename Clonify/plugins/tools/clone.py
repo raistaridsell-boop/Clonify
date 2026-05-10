@@ -102,8 +102,8 @@ async def clone_txt(client, message, _):
                 "name": bot.first_name,
                 "token": bot_token,
                 "username": bot.username,
-                "channel": "ProBotts",
-                "support": "ProBotGc",
+                "channel": "SpotifyXNetworks",
+                "support": "SpotifyChatting",
                 "premium" : False,
                 "Date" : False,
             }
