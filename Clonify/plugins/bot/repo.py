@@ -26,7 +26,7 @@ __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ �
 async def start(_, msg):
     buttons = [
         [
-                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/LINKKIHAWELII"),
+                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/SpotifyXNetworks"),
                 InlineKeyboardButton("𝗨𝗣𝗗𝗔𝗧𝗘", url="https://t.me/SpotifyChatting")
         ],
         [ 
