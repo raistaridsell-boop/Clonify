@@ -11,8 +11,8 @@ start_txt = """
 
 ┏━━━━━━━━━━━━━━━━━⧫
 ┠ ◆ **sᴏᴜʀᴄᴇ ᴄᴏᴅᴇ:** [Click Here](https://files.catbox.moe/mgrnlq.jpg)  
-┠ ◆ **ᴅᴇᴠᴇʟᴏᴘᴇʀ:** [KRISH](https://t.me/krish_hu_bc)
-┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [krishBᴏᴛs](https://t.me/krishupdates)
+┠ ◆ **ᴅᴇᴠᴇʟᴏᴘᴇʀ:** [AKASH](https://t.me/I_RAMBHAKT_I)
+┠ ◆ **ʀᴇʟᴇᴀsᴇᴅ ʙʏ:** [](https://t.me/LINKKIHAWELII)
 ┗━━━━━━━━━━━━━━━━━⧫
 
 __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ ʏᴏᴜʀ ᴏᴡɴ!__
@@ -26,8 +26,8 @@ __Fᴏʀᴋ ɪᴛ, ᴄᴜsᴛᴏᴍɪᴢᴇ ɪᴛ, ᴀɴᴅ ᴍᴀᴋᴇ ɪᴛ �
 async def start(_, msg):
     buttons = [
         [
-                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/supp8iiiny"),
-                InlineKeyboardButton("𝗨𝗣𝗗𝗔𝗧𝗘", url="https://t.me/krishupdates")
+                InlineKeyboardButton("𝗦𝗨𝗣𝗣𝗢𝗥𝗧", url="https://t.me/LINKKIHAWELII"),
+                InlineKeyboardButton("𝗨𝗣𝗗𝗔𝗧𝗘", url="https://t.me/SpotifyChatting")
         ],
         [ 
           InlineKeyboardButton("𝗦𝗢𝗨𝗥𝗖𝗘 𝗖𝗢𝗗𝗘", url=f"https://files.catbox.moe/mgrnlq.jpg")
@@ -60,7 +60,7 @@ async def repo(_, message):
             list_of_users += f"{count}. [{user['login']}]({user['html_url']})\n"
             count += 1
 
-        text = f"""[𝖱𝖤𝖯𝖮 𝖫𝖨𝖭𝖪](https://t.me/krishbots) | [𝖦𝖱𝖮𝖴𝖯](https://t.me/krishupdates)
+        text = f"""[𝖱𝖤𝖯𝖮 𝖫𝖨𝖭𝖪](https://t.me/SpotifyXNetwork) | [𝖦𝖱𝖮𝖴𝖯](https://t.me/SpotifyChatting)
 | 𝖢𝖮𝖭𝖳𝖱𝖨𝖡𝖴𝖳𝖮𝖱𝖲 |
 ----------------
 {list_of_users}"""
