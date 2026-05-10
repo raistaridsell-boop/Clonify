@@ -23,8 +23,8 @@ class Userbot(Client):
         if config.STRING1:
             await self.one.start()
             try:
-                await self.one.join_chat("ProBotGc")
-                await self.one.join_chat("ProBotts")
+                await self.one.join_chat("SpotifyXNetworks")
+                await self.one.join_chat("SpotifyChatting")
             except:
                 pass
             assistants.append(1)
