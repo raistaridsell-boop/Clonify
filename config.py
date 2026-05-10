@@ -150,7 +150,7 @@ STREAMI_PICS = [
 ]
 
 START_IMG_URL = getenv(
-    "START_IMG_URL", "https://api.telegram.org/file/bot8415102286:AAFQzL55Q5hfvyw3MAoZeeCshqvkqoEJPvk/photos/file_496.jpg"
+    "START_IMG_URL", "https://l.arzfun.com/KQPl1"
 )
 
 HELP_IMG_URL = getenv(
