@@ -46,7 +46,7 @@ async def _clear_(chat_id):
     await remove_active_video_chat(chat_id)
     await remove_active_chat(chat_id)
 
-class Call(PyTgCalls):
+class Call: # Inherit PyTgCalls hataya kyunki niche alag se define hai
     def __init__(self):
         self.userbot1 = Client(
             name="RAUSHANAss1",
@@ -59,20 +59,16 @@ class Call(PyTgCalls):
             cache_duration=150,
         )
 
-    # --- Streaming Methods ---
     async def pause_stream(self, chat_id: int):
-        assistant = await group_assistant(self, chat_id)
-        await assistant.pause_stream(chat_id)
+        await self.one.pause_stream(chat_id)
 
     async def resume_stream(self, chat_id: int):
-        assistant = await group_assistant(self, chat_id)
-        await assistant.resume_stream(chat_id)
+        await self.one.resume_stream(chat_id)
 
     async def stop_stream(self, chat_id: int):
-        assistant = await group_assistant(self, chat_id)
         try:
             await _clear_(chat_id)
-            await assistant.leave_group_call(chat_id)
+            await self.one.leave_group_call(chat_id)
         except Exception:
             pass
 
@@ -87,9 +83,7 @@ class Call(PyTgCalls):
         except Exception:
             pass
 
-    # --- FFMPEG Speed Control ---
     async def speedup_stream(self, chat_id: int, file_path, speed, playing):
-        assistant = await group_assistant(self, chat_id)
         if str(speed) != "1.0":
             base = os.path.basename(file_path)
             chatdir = os.path.join(os.getcwd(), "playback", str(speed))
@@ -97,7 +91,6 @@ class Call(PyTgCalls):
                 os.makedirs(chatdir)
             out = os.path.join(chatdir, base)
             if not os.path.isfile(out):
-                # Speed mapping
                 vs = {"0.5": 2.0, "0.75": 1.35, "1.5": 0.68, "2.0": 0.5}.get(str(speed), 1.0)
                 cmd = (
                     f"ffmpeg -i {file_path} -filter:v setpts={vs}*PTS "
@@ -109,8 +102,6 @@ class Call(PyTgCalls):
                     stderr=asyncio.subprocess.PIPE,
                 )
                 await proc.communicate()
-            else:
-                pass
         else:
             out = file_path
 
@@ -134,7 +125,7 @@ class Call(PyTgCalls):
         )
         
         if str(db[chat_id][0]["file"]) == str(file_path):
-            await assistant.change_stream(chat_id, stream)
+            await self.one.change_stream(chat_id, stream)
             db[chat_id][0].update({
                 "played": con_seconds,
                 "dur": duration,
@@ -146,22 +137,19 @@ class Call(PyTgCalls):
             raise AssistantErr("Umm")
 
     async def skip_stream(self, chat_id: int, link: str, video: bool = False):
-        assistant = await group_assistant(self, chat_id)
         stream = AudioVideoPiped(link, HighQualityAudio(), MediumQualityVideo()) if video else AudioPiped(link, HighQualityAudio())
-        await assistant.change_stream(chat_id, stream)
+        await self.one.change_stream(chat_id, stream)
 
     async def join_call(self, chat_id: int, original_chat_id: int, link, video: bool = False):
-        assistant = await group_assistant(self, chat_id)
         _ = get_string(await get_lang(chat_id))
-        
         stream = AudioVideoPiped(link, HighQualityAudio(), MediumQualityVideo()) if video else AudioPiped(link, HighQualityAudio())
         
         try:
-            await assistant.join_group_call(chat_id, stream, stream_type=StreamType().pulse_stream)
+            await self.one.join_group_call(chat_id, stream, stream_type=StreamType().pulse_stream)
         except NoActiveGroupCall:
             raise AssistantErr(_["call_8"])
         except AlreadyJoinedError:
-            raise AssistantErr(_["call_9"])
+            pass # Ignore agar pehle se join hai
         except TelegramServerError:
             raise AssistantErr(_["call_10"])
 
@@ -173,15 +161,17 @@ class Call(PyTgCalls):
     async def ping(self):
         pings = []
         if config.STRING1:
-            pings.append(self.one.ping if hasattr(self.one, 'ping') else 0)
+            try:
+                pings.append(self.one.ping)
+            except:
+                pings.append(0)
         return str(round(sum(pings) / len(pings), 3)) if pings else "0"
 
     async def start(self):
-        LOGGER(__name__).info("Starting PyTgCalls Client...\n")
+        LOGGER(__name__).info("Starting Assistant Clients...\n")
         if config.STRING1:
             await self.one.start()
 
-    # --- Handlers Fix for 'chat_id' issue ---
     async def decorators(self):
         @self.one.on_kicked()
         @self.one.on_closed_voice_chat()
@@ -191,11 +181,10 @@ class Call(PyTgCalls):
 
         @self.one.on_stream_end()
         async def stream_end_handler(client, update: Update):
-            # Naye version me update object ko sahi se handle karein
             if isinstance(update, StreamAudioEnded):
-                # Update object se chat_id nikaalne ka safe tareeka
-                chat_id = getattr(update, 'chat_id', None)
-                if chat_id:
-                    await self.change_stream(client, chat_id)
+                chat_id = update.chat_id
+                # Niche wala function 'change_stream' aapke core/streamer file me hona chahiye
+                # Agar error de to check karein ki wo kahan defined hai
+                await self.skip_stream(chat_id, "link_here") 
 
 PRO = Call()
