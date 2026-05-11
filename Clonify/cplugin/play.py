@@ -65,16 +65,13 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
     
     # Anti-Spam Check
     current_time = time()
-    last_message_time = user_last_message_time.get(user_id, 0)
-    if current_time - last_message_time < SPAM_WINDOW_SECONDS:
-        user_command_count[user_id] = user_command_count.get(user_id, 0) + 1
-        if user_command_count[user_id] > SPAM_THRESHOLD:
+    if user_id in user_last_message_time:
+        if current_time - user_last_message_time[user_id] < SPAM_WINDOW_SECONDS:
             hu = await message.reply_text(f"**{message.from_user.mention}, please don't spam! Try again after 5 sec.**")
             await asyncio.sleep(3)
             return await hu.delete()
-    else:
-        user_command_count[user_id] = 1
-        user_last_message_time[user_id] = current_time
+    
+    user_last_message_time[user_id] = current_time
 
     await add_served_user_clone(message.chat.id, cuser.id)
     mystic = await message.reply_text(_["play_2"].format(channel) if channel else _["play_1"])
@@ -84,6 +81,7 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
     spotify = None
     img = None
     cap = None
+    plist_type = None # Initialize plist_type
 
     # Audio/Video Telegram Files
     audio_telegram = (message.reply_to_message.audio or message.reply_to_message.voice) if message.reply_to_message else None
@@ -99,7 +97,7 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
                 await stream(client, _, mystic, user_id, details, chat_id, message.from_user.first_name, message.chat.id, streamtype="telegram", forceplay=fplay)
             except Exception as e:
                 return await mystic.edit_text(f"Error: {e}")
-            return await mystic.delete()
+            return # Mystic delete is handled inside stream or after stream
 
     elif video_telegram:
         file_path = await Telegram.get_filepath(video=video_telegram)
@@ -109,7 +107,7 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
                 await stream(client, _, mystic, user_id, details, chat_id, message.from_user.first_name, message.chat.id, video=True, streamtype="telegram", forceplay=fplay)
             except Exception as e:
                 return await mystic.edit_text(f"Error: {e}")
-            return await mystic.delete()
+            return
 
     elif url:
         if await YouTube.exists(url):
@@ -118,6 +116,7 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
                     details = await YouTube.playlist(url, config.PLAYLIST_FETCH_LIMIT, user_id)
                     streamtype = "playlist"; img = config.PLAYLIST_IMG_URL; cap = _["play_10"]
                     plist_id = url.split("=")[1].split("&")[0] if "&" in url else url.split("=")[1]
+                    plist_type = "ytplay"
                 except Exception: return await mystic.edit_text(_["play_3"])
             else:
                 try:
@@ -129,15 +128,13 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
             spotify = True
             if "track" in url:
                 details, track_id = await Spotify.track(url)
-                streamtype = "youtube"; img = details["thumb"]; cap = _["play_10"].format(details["title"], details["duration_min"])
+                streamtype = "youtube"; img = details["thumb"]; cap = _["play_11"].format(details["title"], details["duration_min"])
             else:
-                # Handle Spotify Playlists/Albums
                 details, plist_id = await Spotify.playlist(url) if "playlist" in url else await Spotify.album(url)
                 streamtype = "playlist"; cap = _["play_11"].format(cuser.mention, message.from_user.mention)
                 img = config.SPOTIFY_PLAYLIST_IMG_URL
                 plist_type = "spplay" if "playlist" in url else "spalbum"
 
-        # Direct M3U8/Index
         else:
             try:
                 await stream(client, _, mystic, user_id, url, chat_id, message.from_user.first_name, message.chat.id, video=video, streamtype="index", forceplay=fplay)
@@ -156,7 +153,6 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
     # Playmode Logic
     if str(playmode) == "Direct":
         await stream(client, _, mystic, user_id, details, chat_id, message.from_user.first_name, message.chat.id, video=video, streamtype=streamtype, spotify=spotify, forceplay=fplay)
-        await mystic.delete()
     else:
         if streamtype == "playlist":
             ran_hash = "".join(random.choices(string.ascii_uppercase + string.digits, k=10))
@@ -165,45 +161,19 @@ async def play_commnd(client, message: Message, _, chat_id, video, channel, play
             await mystic.delete()
             await message.reply_photo(photo=img, caption=cap, reply_markup=InlineKeyboardMarkup(buttons))
         else:
-            buttons = slider_markup(_, track_id, user_id, query, 0, "c" if channel else "g", "f" if fplay else "d") if 'query' in locals() else track_markup(_, track_id, user_id, "c" if channel else "g", "f" if fplay else "d")
+            # Fixed: 'query' variable handle for slider
+            search_query = query if 'query' in locals() else details['title']
+            buttons = slider_markup(_, track_id, user_id, search_query, 0, "c" if channel else "g", "f" if fplay else "d")
             await mystic.delete()
-            await message.reply_photo(photo=details["thumb"] if details else img, caption=_["play_10"].format(details["title"], details["duration_min"]) if details else cap, reply_markup=InlineKeyboardMarkup(buttons))
+            await message.reply_photo(photo=details["thumb"] if details else img, caption=_["play_11"].format(details["title"], details["duration_min"]) if details else cap, reply_markup=InlineKeyboardMarkup(buttons))
 
-# Slider Callback Fix
-@Client.on_callback_query(filters.regex("slider") & ~BANNED_USERS)
-@languageCB
-async def slider_queries(client: Client, CallbackQuery, _):
-    callback_data = CallbackQuery.data.strip()
-    try:
-        what, rtype, query, user_id, cplay, fplay = callback_request = callback_data.split(None, 1)[1].split("|")
-    except: return
-    
-    if CallbackQuery.from_user.id != int(user_id):
-        return await CallbackQuery.answer(_["playcb_1"], show_alert=True)
-            
-    rtype = int(rtype)
-    query_type = (0 if rtype == 9 else rtype + 1) if what == "F" else (9 if rtype == 0 else rtype - 1)
-    
-    try:
-        await CallbackQuery.answer(_["playcb_2"])
-        title, duration_min, thumbnail, vidid = await YouTube.slider(query, query_type)
-        buttons = slider_markup(_, vidid, user_id, query, query_type, cplay, fplay)
-        await CallbackQuery.edit_message_media(
-            InputMediaPhoto(media=thumbnail, caption=_["play_10"].format(title.title(), duration_min)),
-            reply_markup=InlineKeyboardMarkup(buttons)
-        )
-    except Exception as e:
-        LOGGER(__name__).error(e)
-
-# Stream Function (Same Logic with Fixes)
+# Fixed Stream Function
 async def stream(client, _, mystic, user_id, result, chat_id, user_name, original_chat_id, video=None, streamtype=None, spotify=None, forceplay=None):
     if not result: return
-    if forceplay: await PRO.force_stop_stream(chat_id)
+    if forceplay: 
+        await PRO.stop_stream_force(chat_id) # Updated function name from call.py
     
-    if streamtype == "playlist":
-        # Playlist logic...
-        pass # Code remains similar to your stream logic but with try-except blocks
-    elif streamtype == "youtube":
+    if streamtype == "youtube":
         vidid = result["vidid"]
         title = result["title"]
         try:
@@ -213,18 +183,27 @@ async def stream(client, _, mystic, user_id, result, chat_id, user_name, origina
         if await is_active_chat(chat_id):
             await put_queue(chat_id, original_chat_id, file_path if direct else f"vid_{vidid}", title, result["duration_min"], user_name, vidid, user_id, "video" if video else "audio")
             await client.send_message(original_chat_id, text=_["queue_4"].format("Added", title[:18], result["duration_min"], user_name), reply_markup=InlineKeyboardMarkup(aq_markup(_, chat_id)))
+            await mystic.delete()
         else:
             if not forceplay: db[chat_id] = []
-            await PRO.join_call(chat_id, original_chat_id, file_path, video=video, image=result["thumb"])
+            # Fixed: image argument removed as per new call.py
+            await PRO.join_call(chat_id, original_chat_id, file_path, video=video)
             await put_queue(chat_id, original_chat_id, file_path if direct else f"vid_{vidid}", title, result["duration_min"], user_name, vidid, user_id, "video" if video else "audio", forceplay=forceplay)
             img = await get_thumb(vidid)
             run = await client.send_photo(original_chat_id, photo=img, caption=_["stream_1"].format(f"https://t.me/{(await client.get_me()).username}?start=info_{vidid}", title[:18], result["duration_min"], user_name), reply_markup=InlineKeyboardMarkup(panel_markup_clone(_, vidid, chat_id)))
             db[chat_id][0]["mystic"] = run
+            await mystic.delete()
 
-async def get_thumb(videoid):
-    try:
-        query = f"https://www.youtube.com/watch?v={videoid}"
-        results = VideosSearch(query, limit=1)
-        res = await results.next()
-        return res["result"][0]["thumbnails"][0]["url"].split("?")[0]
-    except: return config.YOUTUBE_IMG_URL
+    elif streamtype == "telegram":
+        file_path = result["path"]
+        title = result["title"]
+        dur = result["dur"]
+        if await is_active_chat(chat_id):
+            await put_queue(chat_id, original_chat_id, file_path, title, dur, user_name, "telegram", user_id, "video" if video else "audio")
+            await client.send_message(original_chat_id, text=_["queue_4"].format("Added", title[:18], dur, user_name), reply_markup=InlineKeyboardMarkup(aq_markup(_, chat_id)))
+            await mystic.delete()
+        else:
+            if not forceplay: db[chat_id] = []
+            await PRO.join_call(chat_id, original_chat_id, file_path, video=video)
+            await put_queue(chat_id, original_chat_id, file_path, title, dur, user_name, "telegram", user_id, "video" if video else "audio", forceplay=fplay if 'fplay' in locals() else None)
+            await mystic.delete()
