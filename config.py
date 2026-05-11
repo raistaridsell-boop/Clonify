@@ -144,7 +144,7 @@ confirmer = {}
 # ------------------------------------------------------------------------
 
 STREAMI_PICS = [
-"https://i.ibb.co/whgkNq6n/start-img-1.jpg",
+"https://l.arzfun.com/KQPl1",
 "https://l.arzfun.com/KQPl1",
 
 ]
