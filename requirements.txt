@@ -1,3 +1,5 @@
+yt-dlp
+pytube
 aiofiles
 aiohttp
 apscheduler
@@ -32,7 +34,6 @@ python-dotenv
 python-telegram-bot
 pyshorteners
 pytz
-pytube
 py-tgcalls==0.9.7
 pyyaml
 qrcode
@@ -45,6 +46,5 @@ telegraph
 tgcrypto
 unidecode
 wget
-yt-dlp
 youtube-search-python
 flask
