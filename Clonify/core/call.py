@@ -188,3 +188,48 @@ class Call: # Inherit PyTgCalls hataya kyunki niche alag se define hai
                 await self.skip_stream(chat_id, "link_here") 
 
 PRO = Call()
+
+import logging
+import importlib
+
+# Logging setup taaki pata chale error kahan hai
+logging.basicConfig(level=logging.INFO)
+logger = logging.getLogger(__name__)
+
+def load_plugin_safely(module_path):
+    """
+    Koshish karega module load karne ki, 
+    agar fail hua toh error batayega crash nahi karega.
+    """
+    try:
+        return importlib.import_module(module_path)
+    except ImportError as e:
+        logger.error(f"Error loading {module_path}: {e}")
+        return None
+    except Exception as e:
+        logger.error(f"Unexpected error in {module_path}: {e}")
+        return None
+
+# --- Aapka Logic Yahan Se Shuru Hota Hai ---
+
+def main_callback_handler(data):
+    """
+    Is function ko aap apne worker ya main file se call kar sakte hain.
+    """
+    try:
+        # Example logic
+        if not data:
+            return {"status": "error", "message": "No data provided"}
+        
+        # Aapka processing code yahan aayega
+        print("Processing callback...")
+        return {"status": "success"}
+        
+    except Exception as e:
+        logger.error(f"Callback Execution Error: {e}")
+        return {"status": "failed", "error": str(e)}
+
+if __name__ == "__main__":
+    # Test karne ke liye
+    print("Callback module loaded successfully.")
+
