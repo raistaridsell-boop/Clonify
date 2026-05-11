@@ -1,4 +1,4 @@
-#Netscape HTTP Cookie File
+# Netscape HTTP Cookie File
 # https://curl.haxx.se/rfc/cookie_spec.html
 # This is a generated file! Do not edit.
 
@@ -27,9 +27,7 @@ accounts.google.com FALSE / TRUE 1813027478 __Host-1PLSID s.IN|s.youtube:g.a0009
 accounts.google.com FALSE / TRUE 1813027478 __Host-3PLSID s.IN|s.youtube:g.a0009whVDG-Bk6xeO6sgF9Qyj640hxMRxEqDWhGXxEkYaz5n1cRjBGd3oO9LeDVx3zcbe1IrtQACgYKAfMSARYSFQHGX2MiFpVYGJp8XIvNcLemKCiGEBoVAUF8yKqOM7cHVpkqbSLVo1n2zEt10076
 .google.com TRUE / FALSE 1813027466 HSID AD5vdKHUoMf-amPw3
 .google.com TRUE / TRUE 1813027466 SSID Awyn9gEtKn0a6pL0m
-.google.com TRUE / FALSE 1813027466 APISID YTa6QY8obihm7qC0/Al8A9Ld7ncy9Mr3f-
-
-.google.com TRUE / TRUE 1813027466 SAPISID yEOo3DB0rK2-0_Lx/AMhdFa3LCZJQQbqRR
+.google.com TRUE / FALSE 1813027466 APISID YTa6QY8obihm7qC0/Al8A9Ld7ncy9Mr3f-.google.com TRUE / TRUE 1813027466 SAPISID yEOo3DB0rK2-0_Lx/AMhdFa3LCZJQQbqRR
 .google.com TRUE / TRUE 1813027466 __Secure-1PAPISID yEOo3DB0rK2-0_Lx/AMhdFa3LCZJQQbqRR
 .google.com TRUE / TRUE 1813027466 __Secure-3PAPISID yEOo3DB0rK2-0_Lx/AMhdFa3LCZJQQbqRR
 accounts.google.com FALSE / TRUE 1813027466 ACCOUNT_CHOOSER AFx_qI6IbSzLuCFjt0Huwv0nYEVO56rMREWuujR0u759PlzYjWAfGoDZiVJ4nqgL07ez4eMrFrFMB18CsgzQ_GeLoYEXn-fHV1TE4A8N4-wvzNprKmsrvo_vk9Y68TtPu_KG0zIeBwyh
