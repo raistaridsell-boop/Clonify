@@ -31,6 +31,7 @@ from Clonify.utils.database import (
 from Clonify.utils.decorators.language import languageCB
 from Clonify.utils.formatters import seconds_to_min
 from Clonify.utils.inline import (
+    close_markup,
     stream_markup_timer,
     stream_markup2,
     stream_markup_timer2,
@@ -39,14 +40,10 @@ from Clonify.utils.inline import (
     slider_markup,
     livestream_markup,
     playlist_markup,
-    stream_markup,
-    stream_markup_timer,
     telegram_markup,
     panel_markup_4,
     panel_markup_3,
     panel_markup_2,
-    stream_markup_timer2,
-    stream_markup2,
     queue_markup,
     panel_markup_1,
 )
