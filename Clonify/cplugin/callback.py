@@ -33,7 +33,7 @@ from Clonify.utils.formatters import seconds_to_min
 from Clonify.utils.inline import (
     close_markup,
     stream_markup_timer,
-    stream_markup_timer2,
+    stream_markup2,
     panel_markup_5,
     track_markup,
     slider_markup,
